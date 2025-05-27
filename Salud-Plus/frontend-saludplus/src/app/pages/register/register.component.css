@@ -1,0 +1,118 @@
+.registro-form {
+  max-width: 400px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  border: 0.5px solid #252e36;
+  box-shadow: 0 4px 18px rgba(255, 165, 81, 0.10);
+  overflow: hidden;
+  padding: 0; /* Quita el padding aquí */
+}
+
+.registro-form-header {
+  background: linear-gradient(90deg, #2493de 0%, #2493de 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: 24px 0 16px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 18px; /* Corrige aquí */
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.registro-form form {
+  padding: 0 24px 32px 24px; /* Aplica el padding solo al formulario */
+}
+
+.registro-form:focus-within {
+  border-color: #1a0f02;
+}
+
+.registro-form h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #418dc8;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #2c97de;
+}
+
+input {
+  padding: 10px;
+  border: 1.5px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border 0.2s;
+}
+
+input:focus {
+  border-color: #1b6ca8;
+  outline: none;
+}
+
+input.invalid {
+  border-color: #e74c3c;
+  background: #fff6f6;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #1b6ca8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:disabled {
+  background: #b3c6d9;
+  cursor: not-allowed;
+}
+
+.password-input-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  width: 100%;
+  padding-right: 35px; /* Espacio para el ícono */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #1b6ca8;
+  z-index: 2;
+}
+
+.password-toggle:hover {
+  color: #155a8a;
+}

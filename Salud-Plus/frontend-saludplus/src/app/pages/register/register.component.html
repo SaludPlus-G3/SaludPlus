@@ -1,0 +1,44 @@
+<section class="content registro-form">
+  <div class="registro-form-header">Cuenta</div>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input type="text" formControlName="name" placeholder="Ingrese su nombre completo" [class.invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" />
+      <div class="error" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+        El nombre es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" formControlName="email" placeholder="ejemplo@gmail.com" [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" />
+      <div class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        Ingrese un email válido.
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Contraseña:</label>
+      <div class="password-input-container">
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Mínimo 6 caracteres" [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" />
+        <span class="password-toggle" (click)="togglePasswordVisibility()">
+          <i [class]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        </span>
+      </div>
+      <div class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        Mínimo 6 caracteres.
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Confirmar Contraseña:</label>
+      <div class="password-input-container">
+        <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Repita su contraseña" [class.invalid]="registerForm.get('confirmPassword')?.touched && registerForm.get('password')?.value !== registerForm.get('confirmPassword')?.value" />
+        <span class="password-toggle" (click)="toggleConfirmPasswordVisibility()">
+          <i [class]="showConfirmPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        </span>
+      </div>
+      <div class="error" *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('password')?.value !== registerForm.get('confirmPassword')?.value">
+        Las contraseñas no coinciden.
+      </div>
+    </div>
+    <button type="submit" [disabled]="registerForm.invalid || registerForm.get('password')?.value !== registerForm.get('confirmPassword')?.value">Crear Cuenta</button>
+  </form>
+</section>

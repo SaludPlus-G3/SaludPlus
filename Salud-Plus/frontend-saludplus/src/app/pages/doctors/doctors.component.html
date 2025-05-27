@@ -1,0 +1,28 @@
+<section class="content doctors-section">
+  <h2>Nuestros Médicos</h2>
+  
+  <div class="area-selector">
+    <select id="specialty-select" (change)="filterDoctors($event)">
+      <option value="all">Todas las especialidades</option>
+      <option value="Medicina General">Medicina General</option>
+      <option value="Cardiología">Cardiología</option>
+      <option value="Neurología">Neurología</option>
+      <option value="Pediatría">Pediatría</option>
+      <option value="Dermatología">Dermatología</option>
+      <option value="Oftalmología">Oftalmología</option>
+      <option value="Psiquiatría">Psiquiatría</option>
+    </select>
+  </div>
+  
+  <div class="doctors-container">
+    <!-- Médicos de Medicina General -->
+    <div class="doctor-card" *ngFor="let doctor of filteredDoctors" [attr.data-specialty]="doctor.specialty">
+      <img [src]="doctor.image" [alt]="doctor.name" class="doctor-image">
+      <div class="doctor-info">
+        <div class="doctor-name">{{ doctor.name }}</div>
+        <div class="doctor-specialty">{{ doctor.specialty }}</div>
+        <div class="doctor-university">{{ doctor.university }}</div>
+      </div>
+    </div>
+  </div>
+</section>
