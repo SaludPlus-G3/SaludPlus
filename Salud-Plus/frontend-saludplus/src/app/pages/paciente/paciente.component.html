@@ -1,0 +1,38 @@
+<app-header-usuario></app-header-usuario>
+<main>
+  <section class="bienvenida">
+    <h2>👋 ¡Hola, {{ nombreUsuario }}!</h2>
+    <p>Bienvenido a tu panel de paciente. Aquí puedes revisar tus próximas citas, tu historial y mucho más.</p>
+  </section>
+
+  <section class="panel-principal">
+    <!-- Contenido del panel del paciente -->
+    <div class="panel">
+      <h3>📅 Próxima Cita</h3>
+      <p>{{ proximaCita.fecha }} - {{ proximaCita.hora }} con {{ proximaCita.doctor }} ({{ proximaCita.especialidad }})</p>
+      <div class="botones-cita">
+        <button class="btn-confirmar" (click)="confirmarCita()">Confirmar</button>
+        <button class="btn-rechazar" (click)="rechazarCita()">Rechazar</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>📖 Historial Rápido</h3>
+      <ul>
+        <li *ngFor="let item of historial">{{ item.fecha }} - {{ item.descripcion }}</li>
+      </ul>
+    </div>
+
+    <div class="panel acciones">
+      <button class="btn-accion" (click)="agendarCita()">Agendar nueva cita</button>
+      <button class="btn-accion" (click)="verHistorial()">Ver historial completo</button>
+      <button class="btn-accion" (click)="verRecetas()">Ver recetas</button>
+    </div>
+  </section>
+
+  <section class="alertas-salud">
+    <h3>💡 Recomendaciones</h3>
+    <p>{{ recomendacion }}</p>
+  </section>
+</main>
+
