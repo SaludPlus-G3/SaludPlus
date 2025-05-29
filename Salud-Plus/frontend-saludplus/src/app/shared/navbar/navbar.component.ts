@@ -14,7 +14,7 @@ export class NavbarComponent {
   navItems = [
     { path: '/', label: 'Inicio' },
     { path: '/doctors', label: 'Nuestros Médicos' },
-    { path: '/appointments', label: 'Agenda' },
+    { path: '/schedule', label: 'Agenda' },
     { path: '/login', label: 'Cuenta' } // Cambiado de "Registro" a "Cuenta"
   ];
 }
