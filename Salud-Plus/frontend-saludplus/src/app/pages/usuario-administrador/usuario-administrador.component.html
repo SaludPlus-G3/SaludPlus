@@ -1,0 +1,57 @@
+<header>
+  <div class="contenedor-header">
+    <div class="logo-titulo">
+      <div class="imagen-contenedor">
+        <img class="imagen-logo" src="assets/LogoSaludPlus.png" alt="Logo SaludPlus">
+      </div>
+      <div class="texto-header">
+        <h1>SaludPlus</h1>
+        <p>Nos preocupamos de tu Salud</p>
+      </div>
+    </div>
+
+    <div class="usuario-header">
+      <div class="usuario-info">
+        <span class="icono-usuario">👤</span>
+        <span class="nombre-usuario">{{ nombreUsuario }}</span>
+      </div>
+      <button class="btn-salir" (click)="cerrarSesion()">Salir</button>
+    </div>
+  </div>
+</header>
+<main class="admin-dashboard">
+  <section class="bienvenida">
+    <h2>📋 Panel de Administración</h2>
+    <p>Revisa las citas por doctor y su estado para la fecha seleccionada.</p>
+  </section>
+
+  <section class="panel-fecha">
+    <label for="fecha">Seleccionar fecha:</label>
+    <input type="date" id="fecha" [value]="fechaSeleccionada" (change)="filtrarPorFecha($event)" />
+  </section>
+
+  <section class="panel-citas" *ngFor="let doctor of doctors">
+    <div class="panel">
+      <div class="doctor-info">
+        <img [src]="doctor.image" alt="{{ doctor.name }}">
+        <div>
+          <h3>{{ doctor.name }}</h3>
+          <p>{{ doctor.specialty }} - {{ doctor.university }}</p>
+        </div>
+      </div>
+
+      <div *ngIf="tieneCitas(doctor.name); else sinCitas">
+        <ul>
+          <li *ngFor="let cita of citasPorDoctor[doctor.name]">
+            <strong>{{ cita.paciente }}</strong> - {{ cita.hora }} - <em>{{ cita.estado }}</em>
+          </li>
+        </ul>
+      </div>
+
+      <ng-template #sinCitas>
+        <p>No hay citas para este doctor en la fecha seleccionada.</p>
+      </ng-template>
+    </div>
+  </section>
+</main>
+

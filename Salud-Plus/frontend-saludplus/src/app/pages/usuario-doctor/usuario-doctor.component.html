@@ -1,0 +1,56 @@
+<header>
+  <div class="contenedor-header">
+    <div class="logo-titulo">
+      <div class="imagen-contenedor">
+        <img class="imagen-logo" src="assets/LogoSaludPlus.png" alt="Logo SaludPlus">
+      </div>
+      <div class="texto-header">
+        <h1>SaludPlus</h1>
+        <p>Nos preocupamos de tu Salud</p>
+      </div>
+    </div>
+
+    <div class="usuario-header">
+      <div class="usuario-info">
+        <span class="icono-usuario">👤</span>
+        <span class="nombre-usuario">{{ nombreUsuario }}</span>
+      </div>
+      <button class="btn-salir" (click)="cerrarSesion()">Salir</button>
+    </div>
+  </div>
+</header>
+<main class="doctor-dashboard">
+  <section class="bienvenida">
+    <h2>👨‍⚕️ Bienvenido Dr. {{ nombreUsuario }}</h2>
+    <p>Estas son tus atenciones para hoy y tu agenda.</p>
+  </section>
+
+  <section class="panel-principal">
+    <div class="panel">
+      <h3>🗓️ Pacientes para Hoy ({{ fechaActual }})</h3>
+      <ul *ngIf="pacientesHoy.length > 0; else sinPacientes">
+        <li *ngFor="let paciente of pacientesHoy">
+          <strong>{{ paciente.nombre }}</strong> - {{ paciente.hora }} - {{ paciente.motivo }}
+        </li>
+      </ul>
+      <ng-template #sinPacientes>
+        <p>No tiene pacientes asignados para hoy.</p>
+      </ng-template>
+    </div>
+
+    <div class="panel">
+      <h3>📅 Revisar Agenda</h3>
+      <input type="date" [value]="fechaSeleccionada" (change)="verAgenda($event)" />
+      <div *ngIf="pacientesFecha.length > 0; else sinAgenda">
+        <ul>
+          <li *ngFor="let cita of pacientesFecha">
+            <strong>{{ cita.nombre }}</strong> - {{ cita.hora }} - {{ cita.motivo }}
+          </li>
+        </ul>
+      </div>
+      <ng-template #sinAgenda>
+        <p>No tiene pacientes para esta fecha.</p>
+      </ng-template>
+    </div>
+  </section>
+</main>
