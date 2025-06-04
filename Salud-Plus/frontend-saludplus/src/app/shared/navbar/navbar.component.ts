@@ -18,8 +18,12 @@ export class NavbarComponent {
     { path: '/doctors', label: 'Nuestros Médicos' },
     { path: '/schedule', label: 'Agenda' },
     { path: '/login', label: 'Cuenta' }, // Cambiado de "Registro" a "Cuenta"
-    { path: '/paciente', label: 'Paciente'},
+    { path: '/paciente'},
+    { path: '/usuario-doctor'},
+    {path: '/usuario-administrador'}
+/*
+     { path: '/paciente', label: 'Paciente'},
     { path: '/usuario-doctor', label: 'Doctores'},
-    {path: '/usuario-administrador', label: 'Administrador'}
+    {path: '/usuario-administrador', label: 'Administrador'}*/
   ];
 }
