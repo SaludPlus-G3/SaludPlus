@@ -1,17 +1,31 @@
 <section class="content schedule-form">
     <h2>{{ title }}</h2>
-    <form>
+    <form #f="ngForm">
       <div class="form-group">
         <label for="name">Nombre:</label>
-        <input type="text" id="name" placeholder="Ingrese su nombre completo" required />
+        <input type="text" id="name" name="name" placeholder="Ingrese su nombre completo" required />
       </div>
       <div class="form-group">
         <label for="date">Fecha:</label>
-        <input type="date" id="date" required />
+        <input type="date" id="date" name="date" required />
       </div>
       <div class="form-group">
         <label for="time">Hora:</label>
-        <input type="time" id="time" required />
+        <input type="time" id="time" name="time" required />
+      </div>
+      <div class="form-group">
+        <label for="specialty">Especialidad:</label>
+        <select id="specialty" [(ngModel)]="selectedSpecialty" name="specialty" required>
+          <option value="">Seleccione una especialidad</option>
+          <option *ngFor="let specialty of specialties" [value]="specialty">{{ specialty }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="doctor">Doctor:</label>
+        <select id="doctor" [(ngModel)]="selectedDoctor" name="doctor" [disabled]="!selectedSpecialty" required>
+          <option value="">Seleccione un doctor</option>
+          <option *ngFor="let doctor of filteredDoctors" [value]="doctor.name">{{ doctor.name }}</option>
+        </select>
       </div>
       <button type="submit">Agendar</button>
     </form>
