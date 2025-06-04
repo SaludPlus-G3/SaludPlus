@@ -44,9 +44,19 @@ export class ScheduleComponent {
   selectedSpecialty = '';
   selectedDoctor = '';
 
+  showNotification = false;
+
   get filteredDoctors() {
     return this.selectedSpecialty
       ? this.doctors.filter(d => d.specialty === this.selectedSpecialty)
       : this.doctors;
+  }
+
+  onSubmit(form: any) {
+    if (form.valid) {
+      this.showNotification = true;
+      setTimeout(() => this.showNotification = false, 3000);
+      form.resetForm();
+    }
   }
 }

@@ -42,3 +42,14 @@
   button:hover {
     background: #155a8a;
   }
+  
+  .notification {
+    margin-top: 15px;
+    padding: 12px;
+    background: #e0f7fa;
+    color: #00796b;
+    border: 1px solid #4dd0e1;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+  }

@@ -1,6 +1,6 @@
 <section class="content schedule-form">
     <h2>{{ title }}</h2>
-    <form #f="ngForm">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="form-group">
         <label for="name">Nombre:</label>
         <input type="text" id="name" name="name" placeholder="Ingrese su nombre completo" required />
@@ -29,4 +29,7 @@
       </div>
       <button type="submit">Agendar</button>
     </form>
+    <div *ngIf="showNotification" class="notification">
+      Se ha agendado su hora correctamente.
+    </div>
   </section>
