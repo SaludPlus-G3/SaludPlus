@@ -41,3 +41,5 @@ http://localhost:4200
 # 3)Paciente
 #email:JuanPerez@gmail.cl
 #Contraseña:Juan123
+
+#Añadimos un .dockerignore para excluir archivos y carpetas del contexto de contrucción del Docker, para que así no copie archivos innecesarios.
