@@ -17,6 +17,6 @@ export const routes: Routes = [
   { path:'paciente', component: PacienteComponent },
   {path: 'usuario-doctor', component:UsuarioDoctorComponent},
   {path:'usuario-administrador', component:UsuarioAdministradorComponent},
-  { path: '**', redirectTo: '' },  // ruta comodín para redirigir a home
+  { path: '**', redirectTo: '' }  // ruta comodín para redirigir a home
   
 ];

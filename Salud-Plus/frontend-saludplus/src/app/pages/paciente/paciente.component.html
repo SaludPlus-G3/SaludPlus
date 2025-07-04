@@ -1,4 +1,7 @@
-<app-header-usuario></app-header-usuario>
+<!-- Pasa la propiedad 'nombreUsuario' del PacienteComponent al 'Input' 'nombreUsuario' del HeaderUsuarioComponent -->
+<!-- *** ¡CORRECCIÓN AQUÍ! Cambiado de [userName] a [nombreUsuario] *** -->
+<app-header-usuario [nombreUsuario]="nombreUsuario"></app-header-usuario>
+
 <main>
   <section class="bienvenida">
     <h2>👋 ¡Hola, {{ nombreUsuario }}!</h2>
@@ -35,4 +38,3 @@
     <p>{{ recomendacion }}</p>
   </section>
 </main>
-
