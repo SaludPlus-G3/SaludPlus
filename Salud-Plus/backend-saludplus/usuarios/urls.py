@@ -2,6 +2,7 @@
 
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView # Importa TokenRefreshView
+from .views import ( ReservaListCreateView )
 
 from .views import (
     RegistroPacienteView,
@@ -23,4 +24,5 @@ urlpatterns = [
    
     path('citas/doctor/', DoctorCitasListView.as_view(), name='doctor-citas-list'), 
     path('citas/<int:pk>/', CitaDetailUpdateView.as_view(), name='cita-detail-update'),
+    path('reservas/', ReservaListCreateView.as_view(), name='reserva-list-create'),
 ]

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ScheduleService, Reserva } from './schedule.services';
 
 interface Doctor {
   name: string;
@@ -11,13 +11,13 @@ interface Doctor {
 
 @Component({
   selector: 'app-schedule',
-  standalone: true,
-  imports: [FormsModule, CommonModule],
   templateUrl: './schedule.component.html',
-  styleUrl: './schedule.component.css'
+  styleUrls: ['./schedule.component.css']
 })
+
 export class ScheduleComponent {
-  title = 'Agenda tu Cita';
+  reservaForm: FormGroup;
+  mensaje: string = '';
 
   doctors: Doctor[] = [
     { name: 'Dr. Carlos Méndez', specialty: 'Medicina General', university: 'Universidad de Chile', image: 'https://randomuser.me/api/portraits/men/32.jpg' },
@@ -46,17 +46,35 @@ export class ScheduleComponent {
 
   showNotification = false;
 
+  constructor(private fb: FormBuilder, private scheduleService: ScheduleService) {
+    this.reservaForm = this.fb.group({
+      nombre_paciente: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      doctor: ['', Validators.required],
+      especialidad: ['', Validators.required],
+      fecha: ['', Validators.required],
+      hora: ['', Validators.required],
+    });
+  }
+
   get filteredDoctors() {
     return this.selectedSpecialty
       ? this.doctors.filter(d => d.specialty === this.selectedSpecialty)
       : this.doctors;
   }
 
-  onSubmit(form: any) {
-    if (form.valid) {
-      this.showNotification = true;
-      setTimeout(() => this.showNotification = false, 3000);
-      form.resetForm();
+  onSubmit() {
+    if (this.reservaForm.valid) {
+      this.scheduleService.crearReserva(this.reservaForm.value).subscribe({
+        next: () => {
+          this.mensaje = 'Reserva realizada con éxito';
+          this.reservaForm.reset();
+        },
+        error: () => {
+          this.mensaje = 'Error al reservar, intente más tarde';
+        }
+      });
+      setTimeout(() => this.mensaje = '', 3000);
     }
   }
 }

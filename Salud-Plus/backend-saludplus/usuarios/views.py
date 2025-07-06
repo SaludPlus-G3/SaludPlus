@@ -2,12 +2,13 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import get_user_model
-from .models import Paciente, Doctor, Cita # Asegúrate de que Cita esté importado
+from .models import Paciente, Doctor, Cita, Reserva
 from .serializers import (
     CustomTokenObtainPairSerializer,
     PacienteRegistroSerializer,
     DoctorSerializer,
-    CitaSerializer # Asegúrate de que CitaSerializer esté importado
+    CitaSerializer,
+    ReservaSerializer
 )
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.exceptions import ValidationError as DRFValidationError
@@ -149,3 +150,7 @@ class CitaDetailUpdateView(generics.RetrieveUpdateAPIView):
             serializer.save(estado='Completada')
         else:
             serializer.save() # Si no hay campos relevantes, simplemente guardar
+
+class ReservaListCreateView(generics.ListCreateAPIView):
+    queryset = Reserva.objects.all()
+    serializer_class = ReservaSerializer

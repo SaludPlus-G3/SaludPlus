@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-from .models import Doctor, Cita # <--- Asegúrate de importar Cita aquí
+from .models import Doctor, Cita, Reserva # <--- Asegúrate de importar Cita aquí
 
 Paciente = get_user_model()
 
@@ -145,4 +145,9 @@ class CitaSerializer(serializers.ModelSerializer):
             'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'paciente', 'doctor', 'created_at', 'updated_at']
+
+class ReservaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reserva
+        fields = '__all__'
         
