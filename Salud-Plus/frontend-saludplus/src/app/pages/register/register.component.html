@@ -1,44 +1,121 @@
 <section class="content registro-form">
-  <div class="registro-form-header">Cuenta</div>
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="registro-form-header">Crear Cuenta</div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label>Nombre:</label>
-      <input type="text" formControlName="name" placeholder="Ingrese su nombre completo" [class.invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" />
-      <div class="error" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
-        El nombre es obligatorio.
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Email:</label>
-      <input type="email" formControlName="email" placeholder="ejemplo@gmail.com" [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" />
-      <div class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-        Ingrese un email válido.
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Contraseña:</label>
-      <div class="password-input-container">
-        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Mínimo 6 caracteres" [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" />
-        <span class="password-toggle" (click)="togglePasswordVisibility()">
-          <i [class]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+      <label for="name">Nombre Completo:</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Ingrese su nombre completo"
+        [class.invalid]="nameControl?.invalid && nameControl?.touched"
+      />
+      <div class="error" *ngIf="nameControl?.invalid && nameControl?.touched">
+        <span *ngIf="nameControl?.errors?.['required']">El nombre es obligatorio.</span>
+        <span *ngIf="nameControl?.errors?.['minlength']">
+          Mínimo 3 caracteres (actual: {{ nameControl?.errors?.['minlength']?.actualLength }}/{{ nameControl?.errors?.['minlength']?.requiredLength }})
         </span>
       </div>
-      <div class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-        Mínimo 6 caracteres.
+      <div class="error" *ngIf="validationErrors.nombre_completo">
+        <span>{{ validationErrors.nombre_completo[0] }}</span>
       </div>
     </div>
+
     <div class="form-group">
-      <label>Confirmar Contraseña:</label>
+      <label for="email">Email:</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="ejemplo@gmail.com"
+        [class.invalid]="emailControl?.invalid && emailControl?.touched"
+      />
+      <div class="error" *ngIf="emailControl?.invalid && emailControl?.touched">
+        <span *ngIf="emailControl?.errors?.['required']">El email es obligatorio.</span>
+        <span *ngIf="emailControl?.errors?.['email']">Ingrese un email válido.</span>
+      </div>
+      <div class="error" *ngIf="validationErrors.email">
+        <span>{{ validationErrors.email[0] }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Contraseña:</label>
       <div class="password-input-container">
-        <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Repita su contraseña" [class.invalid]="registerForm.get('confirmPassword')?.touched && registerForm.get('password')?.value !== registerForm.get('confirmPassword')?.value" />
-        <span class="password-toggle" (click)="toggleConfirmPasswordVisibility()">
-          <i [class]="showConfirmPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        <input
+          id="password"
+          [type]="showPassword1 ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Mínimo 8 caracteres con mayúscula, número y símbolo"
+          [class.invalid]="passwordControl?.invalid && passwordControl?.touched"
+        />
+        <span class="password-toggle" (click)="togglePasswordVisibility('password')">
+          <i [class]="showPassword1 ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
         </span>
       </div>
-      <div class="error" *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('password')?.value !== registerForm.get('confirmPassword')?.value">
+      <div class="error" *ngIf="passwordControl?.invalid && passwordControl?.touched">
+        <span *ngIf="passwordControl?.errors?.['required']">La contraseña es obligatoria.</span>
+        <span *ngIf="passwordControl?.errors?.['minlength']">
+          Mínimo 8 caracteres (actual: {{ passwordControl?.errors?.['minlength']?.actualLength }})
+        </span>
+        <span *ngIf="passwordControl?.errors?.['passwordStrength']">
+          Debe contener al menos una mayúscula, un número y un carácter especial.
+        </span>
+      </div>
+      <div class="error" *ngIf="validationErrors.password">
+        <span>{{ validationErrors.password[0] }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirmar Contraseña:</label>
+      <div class="password-input-container">
+        <input
+          id="confirmPassword"
+          [type]="showPassword2 ? 'text' : 'password'"
+          formControlName="confirmPassword"
+          placeholder="Repita su contraseña"
+          [class.invalid]="(confirmPasswordControl?.touched && registerForm.errors?.['mismatch']) || (confirmPasswordControl?.invalid && confirmPasswordControl?.touched)"
+        />
+        <span class="password-toggle" (click)="togglePasswordVisibility('confirmPassword')">
+          <i [class]="showPassword2 ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        </span>
+      </div>
+      <div class="error" *ngIf="confirmPasswordControl?.touched && registerForm.errors?.['mismatch']">
         Las contraseñas no coinciden.
       </div>
+      <div class="error" *ngIf="confirmPasswordControl?.invalid && confirmPasswordControl?.touched && !registerForm.errors?.['mismatch']">
+        <span *ngIf="confirmPasswordControl?.errors?.['required']">Confirme su contraseña.</span>
+      </div>
+      <div class="error" *ngIf="validationErrors.password2">
+        <span>{{ validationErrors.password2[0] }}</span>
+      </div>
+      <div class="error" *ngIf="validationErrors.non_field_errors">
+        <span>{{ validationErrors.non_field_errors[0] }}</span>
+      </div>
     </div>
-    <button type="submit" [disabled]="registerForm.invalid || registerForm.get('password')?.value !== registerForm.get('confirmPassword')?.value">Crear Cuenta</button>
+
+    <button
+      type="submit"
+      class="submit-btn"
+      [disabled]="registerForm.invalid || isLoading"
+      [class.loading]="isLoading"
+    >
+      <span *ngIf="!isLoading">Crear Cuenta</span>
+      <span *ngIf="isLoading">Procesando...</span>
+    </button>
   </form>
 </section>

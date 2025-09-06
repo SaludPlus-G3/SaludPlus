@@ -1,0 +1,384 @@
+/* Estilos generales */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header (si no usas app-header-usuario) */
+.contenedor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.imagen-contenedor {
+  background-color: white;
+  padding: 5px;
+  border-radius: 4px;
+  display: inline-flex;
+}
+
+.imagen-logo {
+  width: 70px;
+  height: auto;
+  object-fit: contain;
+}
+
+.texto-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #2c97de;
+}
+
+.texto-header p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.usuario-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.usuario-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+}
+
+.icono-usuario {
+  font-size: 20px;
+}
+
+.nombre-usuario {
+  text-transform: capitalize;
+}
+
+.btn-salir {
+  background-color: #e53935;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.btn-salir:hover {
+  background-color: #c62828;
+}
+
+/* Contenido principal del dashboard del doctor */
+.doctor-dashboard-main {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #e0f7fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.welcome-section h2 {
+  font-size: 28px;
+  color: #2c97de;
+  margin-bottom: 10px;
+}
+
+.welcome-section p {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Paneles */
+.panel-principal {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+}
+
+.panel-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.panel-card h3 {
+  color: #1b6ca8;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="date"] {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 250px;
+}
+
+/* Lista de pacientes */
+.lista-pacientes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.paciente-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.paciente-info {
+  flex: 1;
+  font-size: 15px;
+}
+
+.paciente-info strong {
+  color: #333;
+}
+
+/* Botón agregar */
+.btn-agregar {
+  background-color: #2c97de;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.btn-agregar:hover {
+  background-color: #1b6ca8;
+  transform: scale(1.1);
+}
+
+/* Mensajes sin registros */
+.sin-registros {
+  color: #888;
+  font-style: italic;
+  padding: 10px 0;
+  margin: 0;
+}
+
+/* Mensajes de estado (carga, error, éxito) */
+.loading-message, .error-message, .success-message {
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.loading-message {
+  background-color: #e0f7fa;
+  color: #00796b;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.success-message {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+/* Estilos para el Modal */
+.detalles-paciente-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  outline: none;
+}
+
+.detalles-contenido {
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: fadeInScale 0.3s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.btn-cerrar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px 10px;
+  color: #666;
+}
+
+.btn-cerrar:hover {
+  color: #333;
+}
+
+/* Estilos para los campos */
+.campo {
+  margin-bottom: 20px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.campo p {
+  margin: 0;
+  padding: 8px 0;
+  color: #333;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* Contenedor de botones */
+.botones-accion {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Estilos para los botones */
+.btn-guardar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.btn-guardar:hover:not([disabled]) {
+  background-color: #218838;
+}
+
+.btn-guardar:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-cancelar {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.btn-cancelar:hover {
+  background-color: #5a6268;
+}
+
+/* Estilos para el foco */
+.detalles-paciente-modal-overlay:focus,
+textarea:focus,
+button:focus {
+  outline: 2px solid #2c97de;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(44, 151, 222, 0.3);
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+  .panel-principal {
+    grid-template-columns: 1fr;
+  }
+  .doctor-dashboard-main {
+    padding: 15px;
+  }
+  .welcome-section h2 {
+    font-size: 1.8rem;
+  }
+  .panel-card {
+    padding: 20px;
+  }
+  .detalles-contenido {
+    padding: 20px;
+  }
+}

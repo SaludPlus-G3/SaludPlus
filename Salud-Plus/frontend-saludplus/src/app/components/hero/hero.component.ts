@@ -13,4 +13,5 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 export class HeroComponent {
   title = 'Bienvenido a SaludPlus';
   buttonText = 'Agenda tu cita';
+  buttonLink = '/schedule';
 }

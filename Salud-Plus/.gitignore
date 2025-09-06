@@ -1,0 +1,43 @@
+# Directorios de entornos virtuales
+venv/
+.venv/
+env/
+
+# Archivos de entorno (sensibles)
+.env
+.env.*
+!.env.example # Si tuvieras un archivo de ejemplo, no lo ignores
+
+# Cachés de Python
+__pycache__/
+*.pyc
+*.sqlite3 # Si usas SQLite en desarrollo
+*.egg-info/
+.pytest_cache/
+
+# Directorios de Node.js (para el frontend)
+frontend-saludplus/node_modules/
+frontend-saludplus/dist/
+frontend-saludplus/.angular/
+frontend-saludplus/tmp/
+frontend-saludplus/npm-debug.log*
+
+# Cachés de Docker
+.docker/
+*.dockerignore
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE (ej. VS Code)
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de registro
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak

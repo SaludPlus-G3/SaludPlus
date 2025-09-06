@@ -1,0 +1,13 @@
+<section class="content">
+    <h2>Agendar Consulta</h2>
+    <form [formGroup]="reservaForm" (ngSubmit)="onSubmit()">
+      <input formControlName="nombre_paciente" placeholder="Nombre completo" required />
+      <input formControlName="email" placeholder="Email" required type="email" />
+      <input formControlName="doctor" placeholder="Doctor" required />
+      <input formControlName="especialidad" placeholder="Especialidad" required />
+      <input formControlName="fecha" type="date" required />
+      <input formControlName="hora" type="time" required />
+      <button type="submit" [disabled]="reservaForm.invalid">Reservar</button>
+    </form>
+    <div *ngIf="mensaje">{{ mensaje }}</div>
+  </section>

@@ -1,0 +1,117 @@
+<app-header-usuario [nombreUsuario]="nombreUsuario"></app-header-usuario>
+
+<main class="doctor-dashboard-main">
+  <section class="welcome-section">
+    <h2>👨‍⚕️ Bienvenido Dr. {{ nombreUsuario }}</h2>
+    <p>Estas son tus atenciones para hoy y tu agenda.</p>
+  </section>
+
+  <section class="panel-principal">
+    <div class="panel-card">
+      <h3>🗓️ Pacientes para Hoy ({{ fechaActual }})</h3>
+      <div *ngIf="isLoadingCitas" class="loading-message">Cargando pacientes...</div>
+      <div *ngIf="errorMessageCitas" class="error-message">{{ errorMessageCitas }}</div>
+
+      <ul *ngIf="!isLoadingCitas && citasHoy.length > 0; else sinPacientesHoy" class="lista-pacientes">
+        <li *ngFor="let cita of citasHoy" class="paciente-item">
+          <span class="paciente-info">
+            <strong>{{ cita.paciente.nombre_completo }}</strong> - {{ cita.hora | slice:0:5 }} - {{ cita.motivo_consulta }}
+          </span>
+          <button class="btn-agregar" 
+                  (click)="abrirDetalles(cita)"
+                  tabindex="0"
+                  [attr.aria-label]="'Ver detalles de ' + cita.paciente.nombre_completo">+</button>
+        </li>
+      </ul>
+      <ng-template #sinPacientesHoy>
+        <p class="sin-registros" *ngIf="!isLoadingCitas">No tiene pacientes asignados para hoy.</p>
+      </ng-template>
+    </div>
+
+    <div class="panel-card">
+      <h3>📅 Revisar Agenda</h3>
+      <input type="date" [ngModel]="fechaSeleccionada" (ngModelChange)="verAgenda($event)" />
+      
+      <div *ngIf="isLoadingCitas" class="loading-message">Cargando agenda...</div>
+      <div *ngIf="errorMessageCitas" class="error-message">{{ errorMessageCitas }}</div>
+
+      <ul *ngIf="!isLoadingCitas && citasFecha.length > 0; else sinAgenda" class="lista-pacientes">
+        <li *ngFor="let cita of citasFecha" class="paciente-item">
+          <span class="paciente-info">
+            <strong>{{ cita.paciente.nombre_completo }}</strong> - {{ cita.hora | slice:0:5 }} - {{ cita.motivo_consulta }}
+          </span>
+          <button class="btn-agregar"
+                  (click)="abrirDetalles(cita)"
+                  tabindex="0"
+                  [attr.aria-label]="'Ver detalles de ' + cita.paciente.nombre_completo">+</button>
+        </li>
+      </ul>
+      <ng-template #sinAgenda>
+        <p class="sin-registros" *ngIf="!isLoadingCitas">No tiene pacientes para esta fecha.</p>
+      </ng-template>
+    </div>
+  </section>
+
+  <!-- Modal de Detalles de la Consulta -->
+  <div *ngIf="mostrarDetalles" class="detalles-paciente-modal-overlay">
+    <div class="detalles-contenido">
+      <button class="btn-cerrar" 
+              (click)="cerrarDetalles()" 
+              tabindex="0"
+              aria-label="Cerrar detalles">×</button>
+      
+      <h3>Detalles de la Consulta</h3>
+      <div *ngIf="errorMessageDetalles" class="error-message">{{ errorMessageDetalles }}</div>
+      <div *ngIf="successMessageDetalles" class="success-message">{{ successMessageDetalles }}</div>
+
+      <div class="campo">
+        <label>Paciente:</label>
+        <p>{{ citaSeleccionada?.paciente?.nombre_completo }}</p>
+      </div>
+      
+      <div class="campo">
+        <label>Hora:</label>
+        <p>{{ citaSeleccionada?.hora | slice:0:5 }}</p>
+      </div>
+      
+      <div class="campo">
+        <label>Motivo de Consulta:</label>
+        <p>{{ citaSeleccionada?.motivo_consulta }}</p>
+      </div>
+      
+      <div class="campo">
+        <label for="observaciones">Observaciones:</label>
+        <textarea id="observaciones" 
+                  [(ngModel)]="observaciones" 
+                  tabindex="0"
+                  placeholder="Ingrese observaciones clínicas"></textarea>
+      </div>
+      
+      <div class="campo">
+        <label for="medicamentos">Medicamentos Recetados:</label>
+        <textarea id="medicamentos" 
+                  [(ngModel)]="medicamentos" 
+                  tabindex="0"
+                  placeholder="Liste los medicamentos recetados"></textarea>
+      </div>
+      
+      <div class="campo">
+        <label for="examenes">Exámenes Solicitados:</label>
+        <textarea id="examenes" 
+                  [(ngModel)]="examenes" 
+                  tabindex="0"
+                  placeholder="Liste los exámenes solicitados"></textarea>
+      </div>
+      
+      <div class="botones-accion">
+        <button class="btn-guardar" 
+                (click)="guardarDetalles()" 
+                [disabled]="isLoadingDetalles"
+                tabindex="0">Guardar</button>
+        <button class="btn-cancelar" 
+                (click)="cerrarDetalles()" 
+                tabindex="0">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</main>
